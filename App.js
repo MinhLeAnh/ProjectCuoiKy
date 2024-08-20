@@ -13,7 +13,6 @@ import UserIcon from './assets/UserIcon.svg';
 import AutomationIcon from './assets/AutomationIcon.svg';
 import ControlIcon from './assets/ControlIcon.svg';
 
-
 const Tab = createMaterialBottomTabNavigator();
 
 function MyTab(){
@@ -49,7 +48,7 @@ function MyTab(){
   )
 }
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
       <MyTab/>
@@ -57,11 +56,5 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
+
