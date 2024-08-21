@@ -5,10 +5,11 @@ import Device from "../components/device";
 
 const AutomationScreen=()=>{
     return(
-        <ScrollView >
+        <ScrollView style={styles.scrollView}>
             <View style={styles.smallBg}>
                 <Image style={styles.smallBg_Image} source={require("../assets/small_BG.png")}/>
             </View>
+            
             <View style={styles.container}>
                 <View style={{zIndex:1}}>
                     <View style={styles.weather_avt}>
@@ -44,14 +45,14 @@ const AutomationScreen=()=>{
                 </View>
 
                 <View style={{marginTop:20}}>
-                    <View style={styles.month_button}>
+                    <View style={styles.chart_group}>
                         <Text style={styles.small_title}>Consumption</Text>
-                        <TouchableOpacity style={styles.month_touchable}>
+                        <TouchableOpacity style={styles.button_touchable}>
                             <Text style={{color:'#fff',fontSize:14,fontWeight:500}}>Months</Text>
                             <Image style={{width:20,height:20}} source={require("../assets/down.png")}/>
                         </TouchableOpacity>
                     </View>
-                    <Image style={{resizeMode:'contain',width:331,height:239,marginHorizontal:5,marginTop:0}} source={require("../assets/chart.png")}/>
+                    <Image style={{resizeMode:'contain',width:331,height:239,marginHorizontal:5,marginTop:0}} source={require("../assets/chart1.png")}/>
                 </View>
 
                 <View style={styles.consumption_container}>
@@ -60,18 +61,16 @@ const AutomationScreen=()=>{
                     <Device imageName='microwaveOven' deviceName='Microwave oven' num_device='1 device' kWh='126'/>
                     <Device imageName='smartDoor' deviceName='Smart Door' num_device='1 device' kWh='79'/>
                     <Device imageName='washingMachine' deviceName='Washing machine' num_device='1 device' kWh='365'/>
-
                 </View>
-                
-
-
-
             </View>
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
+    scrollView:{
+        backgroundColor:'#E7EDF4'
+    },
     container:{
         marginHorizontal:16
     },
@@ -115,11 +114,11 @@ const styles = StyleSheet.create({
         marginTop:35,
         justifyContent:'space-between'
     },
-    month_button:{
+    chart_group:{
         flexDirection:'row',
         justifyContent:'space-between'
     },
-    month_touchable:{
+    button_touchable:{
         flexDirection:'row',
         backgroundColor:'#254BEC',
         width:97,height:32,
@@ -135,7 +134,8 @@ const styles = StyleSheet.create({
         paddingBottom:20
     },
     small_title:{
-        fontSize:16,fontWeight:'bold'
+        fontSize:16,fontWeight:'bold',
+        color:'#424242'
     },
 
 

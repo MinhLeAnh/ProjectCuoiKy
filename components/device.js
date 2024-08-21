@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { StyleSheet, Text, View,Image } from 'react-native';
 
 const Device=({imageName,deviceName,num_device,kWh})=>{
@@ -25,11 +24,11 @@ const Device=({imageName,deviceName,num_device,kWh})=>{
         <View style={styles.view}>
             <Image style={{width:60,height:60}} source={getImageSource(imageName)}/>
             <View style={styles.deviceName}>
-                <Text style={{fontSize:14,fontWeight:'bold'}}>{deviceName}</Text>
+                <Text style={{fontSize:14,fontWeight:'bold',color:'#424242'}}>{deviceName}</Text>
                 <Text style={{fontSize:14,fontWeight:'600',color:'#ABABAB'}}>{num_device}</Text>
             </View>
             <View style={styles.consumption}>
-                <Text style={{fontSize:16,fontWeight:'bold'}}>{kWh}</Text>
+                <Text style={{fontSize:16,fontWeight:'bold',color:'#424242'}}>{kWh}</Text>
                 <Text style={{fontSize:14,fontWeight:'600',color:'#ABABAB'}}>kWh</Text>
             </View>
         </View>
