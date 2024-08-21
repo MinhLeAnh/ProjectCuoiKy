@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native';
 
 const Notification=({imageName,actName,description,date,time,borderTop,borderBottom})=>{
 
@@ -41,8 +41,13 @@ const Notification=({imageName,actName,description,date,time,borderTop,borderBot
             </View>
 
             <View style={styles.button_group}>
-                <Image style ={{width:24,height:24,marginBottom:16}} source={require('../assets/edit_icon.png')}/>
-                <Image style ={{width:24,height:24,marginTop:16}} source={require('../assets/trash_icon.png')}/>
+                <TouchableOpacity>
+                    <Image style ={{width:24,height:24,marginBottom:16}} source={require('../assets/edit_icon.png')}/>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image style ={{width:24,height:24,marginTop:16}} source={require('../assets/trash_icon.png')}/>                    
+                </TouchableOpacity>
+                
             </View>
         </View>
     )
@@ -54,7 +59,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         paddingVertical:14,
-        paddingHorizontal:16
     },
     name_group:{
         flexDirection:'column',

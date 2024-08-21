@@ -33,7 +33,7 @@ const AutomationScreen=()=>{
                 <View style={styles.autoGroup}>
                     <Auto imageName='sunny' name="Get up"/>
                     <Auto imageName='moon' name="Goodnight"/>
-                    <Auto imageName='moon' name="Goodnight"/>
+                    <Auto imageName='goOut' name="Go out"/>
                 </View>
 
                 <View style={[styles.autoGroup,{marginTop:0}]}>

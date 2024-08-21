@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 import AutomationScreen from './screens/automation';
 import ControlScreen from './screens/control';
@@ -18,9 +19,25 @@ import ControlIcon from './assets/ControlIcon.svg';
 const Stack = createNativeStackNavigator();
 function UserNavigate() {//điều hướng trong trang User sử dụng NativeStackNavigator
   return (
-    <Stack.Navigator initialRouteName="UserScreen">
+    <Stack.Navigator initialRouteName="UserScreen"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#E7EDF4', // Background color for the header
+          height:200,
+        },
+        headerTintColor: '#424242', // Color of the header text
+        headerTitleStyle: {
+          fontWeight: 'bold', // Font styling for the header title
+          fontSize:20
+        },
+        headerBackImageSource: require('./assets/left1.png'), // Đường dẫn đến ảnh
+
+        headerTitleAlign:'center'
+        
+      }}
+    >
       <Stack.Screen name="UserScreen" component={UserScreen} options={{headerShown:false}} /> 
-      <Stack.Screen name="GeneralNotificationScreen" component={general_noti} />
+      <Stack.Screen name="GeneralNotificationScreen" component={general_noti} options={{ title: 'General Notifications' }} />
     </Stack.Navigator>
   );
 }
