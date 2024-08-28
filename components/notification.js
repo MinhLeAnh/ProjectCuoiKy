@@ -47,7 +47,6 @@ const Notification=({imageName,actName,description,date,time,borderTop,borderBot
                 <TouchableOpacity>
                     <Image style ={{width:24,height:24,marginTop:16}} source={require('../assets/trash_icon.png')}/>                    
                 </TouchableOpacity>
-                
             </View>
         </View>
     )

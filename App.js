@@ -15,35 +15,18 @@ import HomeIcon from './assets/HomeIcon.svg';
 import UserIcon from './assets/UserIcon.svg';
 import AutomationIcon from './assets/AutomationIcon.svg';
 import ControlIcon from './assets/ControlIcon.svg';
+import LoginScreen from './screens/LoginScreen';
+import SplashScreen from './screens/SplashScreen';
+import SplashScreen2 from './screens/SplashScreen2';
+import AirConditionScreen from './screens/AirConditionScreen';
+import LightOnScreen from './screens/LightOnScreen';
+import AddDeviceScreen from './components/addDeviceScreen';
+import AddRoomScreen from './components/addRoomScreen';
+import DeviceFormScreen from './components/deviceFormScreen';
 
 const Stack = createNativeStackNavigator();
-function UserNavigate() {//điều hướng trong trang User sử dụng NativeStackNavigator
-  return (
-    <Stack.Navigator initialRouteName="UserScreen"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#E7EDF4', // Background color for the header
-          height:200,
-        },
-        headerTintColor: '#424242', // Color of the header text
-        headerTitleStyle: {
-          fontWeight: 'bold', // Font styling for the header title
-          fontSize:20
-        },
-        headerBackImageSource: require('./assets/left1.png'), // Đường dẫn đến ảnh
-
-        headerTitleAlign:'center'
-        
-      }}
-    >
-      <Stack.Screen name="UserScreen" component={UserScreen} options={{headerShown:false}} /> 
-      <Stack.Screen name="GeneralNotificationScreen" component={general_noti} options={{ title: 'General Notifications' }} />
-    </Stack.Navigator>
-  );
-}
-
 const Tab = createMaterialBottomTabNavigator();
-function MyTab(){//điều hướng toàn app sử dụng MaterialBottomTabNavigator
+function MyBottomTab(){//điều hướng toàn app sử dụng MaterialBottomTabNavigator
   return(
     <Tab.Navigator
      activeColor="#254BEC"
@@ -69,15 +52,45 @@ function MyTab(){//điều hướng toàn app sử dụng MaterialBottomTabNavig
       <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel:'Homeee'}} />
       <Tab.Screen name="Control" component={ControlScreen} />
       <Tab.Screen name="Automation" component={AutomationScreen} />
-      <Tab.Screen name="User" component={UserNavigate} />
+      <Tab.Screen name="User" component={UserScreen} />
   </Tab.Navigator>
   )
 }
 
+
+
 function App() {
   return (//navigation container duy nhất
     <NavigationContainer>
-      <MyTab/>
+      <Stack.Navigator initialRouteName="SplashScreen"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#E7EDF4', // Background color for the header
+            height:200,
+          },
+          headerTintColor: '#424242', // Color of the header text
+          headerTitleStyle: {
+            fontWeight: 'bold', // Font styling for the header title
+            fontSize:20
+          },
+          headerBackImageSource: require('./assets/left1.png'), // Đường dẫn đến ảnh
+
+          headerTitleAlign:'center'
+          
+        }}
+      >
+        <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="SplashScreen2" component={SplashScreen2} options={{ headerShown: false }} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="RealApp" component={MyBottomTab} options={{ headerShown: false }} />
+        <Stack.Screen name="UserScreen" component={UserScreen} options={{headerShown:false}} /> 
+        <Stack.Screen name="GeneralNotificationScreen" component={general_noti} options={{ title: 'General Notifications' }} />
+        <Stack.Screen name="AirConditionScreen" component={AirConditionScreen} options={{headerShown:false}} />
+        <Stack.Screen name="LightOnScreen" component={LightOnScreen} options={{headerShown:false}} />
+        <Stack.Screen name="AddDevice" component={AddDeviceScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="DeviceForm" component={DeviceFormScreen} options={{ title: 'Add Device' }}/>
+        <Stack.Screen name="AddRoom" component={AddRoomScreen} options={{ title: 'Add Room' }}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
