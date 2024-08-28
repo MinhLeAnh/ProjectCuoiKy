@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native';
 
 const Notification=({imageName,actName,description,date,time,borderTop,borderBottom})=>{
@@ -20,35 +20,46 @@ const Notification=({imageName,actName,description,date,time,borderTop,borderBot
         }
     };
 
+    const [visible, setVisible] = useState(true);
+
+    const removeComponent = () => {
+        setVisible(false);
+    };
+
     return(
-        <View style={[styles.view,borderTop && styles.borderTop,borderBottom && styles.borderBottom]}>
-            <Image style={{width:40,height:40}} source={getImageSource(imageName)}/>
-            
-            {description ?(
-                <View style={styles.name_group}>
-                    <Text style={{fontSize:14,fontWeight:'600',color:'#424242',marginVertical:5}}>{actName}</Text>
-                    <Text style={{fontSize:14,fontWeight:'600',color:'#ABABAB',lineHeight: 20}}>{description}</Text>
-                </View>
-            ):(
-                <View style={[styles.name_group,{justifyContent:'center'}]}>
-                    <Text style={{fontSize:14,fontWeight:'600',color:'#424242',marginVertical:5}}>{actName}</Text>
+        <View>
+            {visible && (
+                <View style={[styles.view,borderTop && styles.borderTop,borderBottom && styles.borderBottom]}>
+                    <Image style={{width:40,height:40}} source={getImageSource(imageName)}/>
+                    
+                    {description ?(
+                        <View style={styles.name_group}>
+                            <Text style={{fontSize:14,fontWeight:'600',color:'#424242',marginVertical:5}}>{actName}</Text>
+                            <Text style={{fontSize:14,fontWeight:'600',color:'#ABABAB',lineHeight: 20}}>{description}</Text>
+                        </View>
+                    ):(
+                        <View style={[styles.name_group,{justifyContent:'center'}]}>
+                            <Text style={{fontSize:14,fontWeight:'600',color:'#424242',marginVertical:5}}>{actName}</Text>
+                        </View>
+                    )}
+
+                    <View style={styles.date_group}>
+                        <Text style={{fontSize:14,fontWeight:'600',color:'#424242',marginVertical:5}}>{date}</Text>
+                        <Text style={{fontSize:14,fontWeight:'600',color:'#424242'}}>{time}</Text>
+                    </View>
+
+                    <View style={styles.button_group}>
+                        <TouchableOpacity>
+                            <Image style ={{width:24,height:24,marginBottom:16}} source={require('../assets/edit_icon.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={removeComponent}>
+                            <Image style ={{width:24,height:24,marginTop:16}} source={require('../assets/trash_icon.png')}/>                    
+                        </TouchableOpacity>
+                    </View>
                 </View>
             )}
-
-            <View style={styles.date_group}>
-                <Text style={{fontSize:14,fontWeight:'600',color:'#424242',marginVertical:5}}>{date}</Text>
-                <Text style={{fontSize:14,fontWeight:'600',color:'#424242'}}>{time}</Text>
-            </View>
-
-            <View style={styles.button_group}>
-                <TouchableOpacity>
-                    <Image style ={{width:24,height:24,marginBottom:16}} source={require('../assets/edit_icon.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image style ={{width:24,height:24,marginTop:16}} source={require('../assets/trash_icon.png')}/>                    
-                </TouchableOpacity>
-            </View>
         </View>
+        
     )
 }
 

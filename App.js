@@ -49,7 +49,7 @@ function MyBottomTab(){//điều hướng toàn app sử dụng MaterialBottomTa
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel:'Homeee'}} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Control" component={ControlScreen} />
       <Tab.Screen name="Automation" component={AutomationScreen} />
       <Tab.Screen name="User" component={UserScreen} />

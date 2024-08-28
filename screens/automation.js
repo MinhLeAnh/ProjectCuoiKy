@@ -1,9 +1,27 @@
-import React from "react";
-import { ScrollView,View,StyleSheet,TouchableOpacity,Text,Image } from "react-native";
+import React,{useState} from "react";
+import { ScrollView,View,StyleSheet,TouchableOpacity,Text,Image,FlatList,Modal } from "react-native";
 import Auto from "../components/auto";
 import Device from "../components/device";
+import { format } from 'date-fns';
 
 const AutomationScreen=()=>{
+    //định dạng ngày tháng hiện tại
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "EEE, MMM do");
+
+    //tháng
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedMonth, setSelectedMonth] = useState(null);
+
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const handleSelectMonth = (month) => {
+        setSelectedMonth(month);
+        setModalVisible(false);
+    };
     return(
         <ScrollView style={styles.scrollView}>
             <View style={styles.smallBg}>
@@ -19,7 +37,7 @@ const AutomationScreen=()=>{
                             <Image style={styles.weatherImage} source={require("../assets/humidity.png")}/>
                             <Text style={styles.text}>70%</Text>
                             <Image style={styles.weatherImage} source={require("../assets/calendar.png")}/>
-                            <Text style={styles.text}>Wed, May 24th</Text>
+                            <Text style={styles.text}>{formattedDate}</Text>
                         </View>
                         <Image style={{width:32,height:32}} source={require("../assets/avatar.png")}/>
                     </View>
@@ -27,7 +45,9 @@ const AutomationScreen=()=>{
                 
                 <View style={styles.big_title}>
                     <Text style={{color:'#fff',fontSize:24,fontWeight:'bold'}}>Automation</Text>
-                    <Image style={{width:24,height:24}} source={require("../assets/plus.png")}/>
+                    <TouchableOpacity>
+                        <Image style={{width:24,height:24}} source={require("../assets/plus.png")}/>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.autoGroup}>
@@ -47,8 +67,8 @@ const AutomationScreen=()=>{
                 <View style={{marginTop:20}}>
                     <View style={styles.chart_group}>
                         <Text style={styles.small_title}>Consumption</Text>
-                        <TouchableOpacity style={styles.button_touchable}>
-                            <Text style={{color:'#fff',fontSize:14,fontWeight:500}}>Months</Text>
+                        <TouchableOpacity style={styles.button_touchable} onPress={() => setModalVisible(true)}>
+                            <Text style={{color:'#fff',fontSize:14,fontWeight:500}}>{selectedMonth ? selectedMonth : 'Months'}</Text>
                             <Image style={{width:20,height:20}} source={require("../assets/down.png")}/>
                         </TouchableOpacity>
                     </View>
@@ -62,6 +82,27 @@ const AutomationScreen=()=>{
                     <Device imageName='smartDoor' deviceName='Smart Door' num_device='1 device' kWh='79'/>
                     <Device imageName='washingMachine' deviceName='Washing machine' num_device='1 device' kWh='365'/>
                 </View>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <FlatList
+                        data={months}
+                        keyExtractor={(item) => item}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity style={styles.monthButton} onPress={() => handleSelectMonth(item)}>
+                            <Text style={styles.monthText}>{item}</Text>
+                            </TouchableOpacity>
+                        )}
+                        />
+                    </View>
+                    </View>
+                </Modal>
             </View>
         </ScrollView>
     )
@@ -137,6 +178,26 @@ const styles = StyleSheet.create({
         fontSize:16,fontWeight:'bold',
         color:'#424242'
     },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
+      modalContent: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        width: 300,
+        padding: 20,
+      },
+      monthButton: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+      },
+      monthText: {
+        fontSize: 18,
+      },
 
 
 })

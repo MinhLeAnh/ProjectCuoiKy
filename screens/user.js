@@ -1,12 +1,24 @@
-import React from "react";
-import { ScrollView,View,StyleSheet,TouchableOpacity,Text,Image } from "react-native";
+import React,{useState} from "react";
+import { ScrollView,View,StyleSheet,TouchableOpacity,Text,Image,Modal,FlatList } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BriefNotification from "../components/brief_notifications";
-import general_noti from "./general_noti"
-
+import { format } from 'date-fns';
 
 const UserScreen=({navigation})=>{
+    //định dạng ngày tháng hiện tại
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "EEE, MMM do");
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedDay, setSelectedDay] = useState(null);
+
+    const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1);
+
+    const handleSelectDay = (day) => {
+        setSelectedDay(day);
+        setModalVisible(false);
+    };
     return(
         <ScrollView style={styles.scrollView}>
             <View style={styles.smallBg}>
@@ -22,7 +34,7 @@ const UserScreen=({navigation})=>{
                             <Image style={styles.weatherImage} source={require("../assets/humidity.png")}/>
                             <Text style={styles.text}>70%</Text>
                             <Image style={styles.weatherImage} source={require("../assets/calendar.png")}/>
-                            <Text style={styles.text}>Wed, May 24th</Text>
+                            <Text style={styles.text}>{formattedDate}</Text>
                         </View>
                         <Image style={{width:32,height:32}} source={require("../assets/avatar.png")}/>
                     </View>
@@ -30,7 +42,9 @@ const UserScreen=({navigation})=>{
                 
                 <View style={styles.big_title}>
                     <Text style={{color:'#fff',fontSize:24,fontWeight:'bold'}}>Hi, Hoang Trang</Text>
-                    <Image style={{width:24,height:24}} source={require("../assets/setting.png")}/>
+                    <TouchableOpacity>
+                        <Image style={{width:24,height:24}} source={require("../assets/setting.png")}/>
+                    </TouchableOpacity>
                 </View>
 
                 <Text style={{color:'#fff',fontSize:14,fontWeight:600}}>All members</Text>
@@ -39,7 +53,9 @@ const UserScreen=({navigation})=>{
                     <Image style={{width:40,height:40}} source={require("../assets/user1.png")}/>
                     <Image style={{width:40,height:40}} source={require("../assets/user2.png")}/>
                     <Image style={{width:40,height:40}} source={require("../assets/user3.png")}/>
-                    <Image style={{width:24,height:24}} source={require("../assets/plus_circle.png")}/>
+                    <TouchableOpacity>
+                        <Image style={{width:24,height:24}} source={require("../assets/plus_circle.png")}/>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.general_notifications}>
@@ -57,12 +73,32 @@ const UserScreen=({navigation})=>{
                 <View style={{marginTop:30}}>
                     <View style={styles.chart_group}>
                         <Text style={styles.small_title}>Usage time</Text>
-                        <TouchableOpacity style={styles.button_touchable}>
-                            <Text style={{color:'#fff',fontSize:14,fontWeight:500}}>Days</Text>
+                        <TouchableOpacity style={styles.button_touchable} onPress={() => setModalVisible(true)}>
+                            <Text style={{color:'#fff',fontSize:14,fontWeight:500}}>{selectedDay ? `Day ${selectedDay}` : 'Days'}</Text>
                             <Image style={{width:20,height:20}} source={require("../assets/down.png")}/>
                         </TouchableOpacity>
                     </View>
                     <Image style={{resizeMode:'contain',width:331,height:239,marginHorizontal:5,marginTop:0}} source={require("../assets/chart2.png")}/>
+                    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <FlatList
+              data={daysInMonth}
+              keyExtractor={(item) => item.toString()}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.dayButton} onPress={() => handleSelectDay(item)}>
+                  <Text style={styles.dayText}>Day {item}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </View>
+      </Modal>
                 </View>
 
             </View>
@@ -146,6 +182,26 @@ const styles = StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:10
     },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
+      modalContent: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        width: 300,
+        padding: 20,
+      },
+      dayButton: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+      },
+      dayText: {
+        fontSize: 18,
+      },
 })
 
 export default UserScreen
