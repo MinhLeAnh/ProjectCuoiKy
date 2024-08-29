@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, ScrollView, TouchableOpacity, StyleSheet, Image, TextInput, Button } from 'react-native';
+import { View, Text, Alert,ImageBackground, ScrollView, TouchableOpacity, StyleSheet, Image, TextInput, Button } from 'react-native';
 
 // Define the `AddRoomScreen` component
 function AddRoomScreen() {
@@ -10,6 +10,7 @@ function AddRoomScreen() {
     // Handle form submission logic here
     console.log(`Room Name: ${roomName}, Device Count: ${deviceCount}`);
     // Optionally, navigate back to the previous screen or clear the form
+    Alert.alert("Thông báo", "Dữ liệu đã được thêm vào");
   };
 
   return (

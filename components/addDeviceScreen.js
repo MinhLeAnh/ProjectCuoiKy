@@ -74,7 +74,7 @@ function AddDeviceScreen() {
   }
 
   const styles = StyleSheet.create({
-    container: {
+container: {
       flex: 1,
       padding: 20,
       backgroundColor: '#fff',
